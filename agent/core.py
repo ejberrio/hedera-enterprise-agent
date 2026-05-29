@@ -6,7 +6,7 @@ from typing import Optional
 from dotenv import load_dotenv
 from hiero_sdk_python import Client, Network, AccountId, PrivateKey
 from langchain.agents import create_agent
-from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import InMemorySaver
 
 from hedera_agent_kit import Configuration, Context
@@ -69,9 +69,9 @@ def build_agent():
         "core_consensus", "core_consensus_query", "enterprise_kyc",
     ]
 
-    llm = ChatAnthropic(
-        model="claude-sonnet-4-6",
-        anthropic_api_key=os.environ["ANTHROPIC_API_KEY"],
+    llm = ChatOpenAI(
+        model="gpt-4o",
+        api_key=os.environ["OPENAI_API_KEY"],
         temperature=0,
     )
 
