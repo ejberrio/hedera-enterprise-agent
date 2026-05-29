@@ -18,7 +18,10 @@ from api.routes import router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    build_agent()
+    try:
+        build_agent()
+    except Exception as e:
+        logging.warning("Agent startup failed (missing/invalid credentials?): %s", e)
     yield
 
 

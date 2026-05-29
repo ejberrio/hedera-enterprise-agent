@@ -121,11 +121,9 @@ async def chat(request: AgentRequest):
 async def health():
     hedera_connected = False
     try:
-        from hiero_sdk_python import AccountBalanceQuery, AccountId
         config = get_configuration()
         if config and config.context and config.context.account_id:
-            pass
-        hedera_connected = True
+            hedera_connected = True
     except Exception as e:
         logger.warning("Hedera connectivity check failed: %s", e)
 
