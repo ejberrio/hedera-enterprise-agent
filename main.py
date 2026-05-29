@@ -4,6 +4,8 @@ from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 load_dotenv()
 
@@ -32,14 +34,10 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(router)
 
 
 @app.get("/")
 async def root():
-    return {
-        "service": "Hedera Enterprise Agent",
-        "version": "1.0.0",
-        "docs": "/docs",
-        "health": "/health",
-    }
+    return FileResponse("static/index.html")
