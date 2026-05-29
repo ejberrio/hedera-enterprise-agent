@@ -70,7 +70,7 @@ def build_agent():
     ]
 
     llm = ChatOpenAI(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         api_key=os.environ["OPENAI_API_KEY"],
         temperature=0,
     )
@@ -110,5 +110,5 @@ def get_configuration() -> Optional[Configuration]:
 
 
 def make_response_parser() -> ResponseParserService:
-    """Create a fresh ResponseParserService per request (tracks processed message IDs)."""
+    """Create a fresh ResponseParserService per request (it tracks processed message IDs)."""
     return ResponseParserService(tools=_hedera_tools)

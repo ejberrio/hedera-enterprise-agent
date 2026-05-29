@@ -67,6 +67,11 @@ async def chat(request: AgentRequest):
         )
     except Exception as e:
         error_msg = str(e).lower()
+        if "rate_limit_exceeded" in error_msg or "rate limit" in error_msg or "429" in error_msg:
+            raise HTTPException(
+                status_code=429,
+                detail="OpenAI rate limit reached. Please wait a few seconds and try again.",
+            )
         if any(k in error_msg for k in ("network", "connect", "timeout", "grpc", "socket")):
             raise HTTPException(
                 status_code=503,
